@@ -54,22 +54,22 @@ typedef struct liststr
 
 
 /**
- *struct passinfo - This contains pseudo-arguements to include into a function,
- *		allowing same prototype for function pointer struct
+ *struct passinfo - This contains pseudo-arguments to include in a function,
+ *		allowing the same prototype for function pointer struct
  *@line_count: it counts the error
- *@path: a path for the srting for the recent command
+ *@path: a path for the string for the recent command
  *@arg: a string that is generated from getline with arguments
- *@argv: an array of strings generated form arguments
+ *@argv: an array of strings generated from arguments
  *@argc: the argument count
  *@alias: the node of alias
- *@environ: upgraded copy of environ froom LL env
- *@env: linked list of local copy of environ
+ *@environ: upgraded copy of environ from LL env
+ *@env: A linked list of a local copy of environ
  *@fname: The file name of the program
  *@linecount_flag: This counts the line of input
  *@err_num: The error code
  *@history: The node of history
  *@histcount: The history line number to count
- *@cmd_buf: The addres of the pointer to cmd_buf
+ *@cmd_buf: The address of the pointer to cmd_buf
  *@cmd_buf_type: CMD_type ||, &&, ;
  *@readfd: tThe fd from which to read the line input
  *@status: The return of status of the last executed command

@@ -183,7 +183,7 @@ void remove_comments(char *);
 /* builtin_0.c */
 int _mycd(info_t *);
 int _myhelp(info_t *);
-int _myexit(info_t);
+int _myexit(info_t *);
 
 /* builtin_1.c */
 int _myalias(info_t *);

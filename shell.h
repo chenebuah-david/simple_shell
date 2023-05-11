@@ -181,9 +181,9 @@ char *convert_number(long int, int, int);
 void remove_comments(char *);
 
 /* builtin_0.c */
-int _mycd(info_t *);
-int _myhelp(info_t *);
-int _myexit(info_t *);
+int _mycd(info_t *info);
+int _myhelp(info_t *info);
+int _myexit(info_t *info);
 
 /* builtin_1.c */
 int _myalias(info_t *);

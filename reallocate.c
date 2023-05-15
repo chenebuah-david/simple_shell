@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- **_memset - This fills memory with  byte
+ **_memset - This fills memory with continuous byte
  *@n: This is the amount of bytes that needs to be filled
  *@s: The major pointer of the memory area or address
  *@b: The byte to fill *s with

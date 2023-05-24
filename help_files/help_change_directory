@@ -1,0 +1,16 @@
+cd: cd
+    	Change the shell working directory.
+
+   	Change the current directory to DIR.  The default DIR is the value of the
+    	HOME shell variable.
+
+	The variable `CDPATH` specifies the search path for locating the directory
+	specified by `DIR`. The directory names in `CDPATH` are separated by a colon (:).
+
+	When searching for `DIR`, if a directory name in `CDPATH` is null (empty),
+	it represents the current directory. However, if `DIR` begins with a slash (/),
+	the `CDPATH` variable is not utilized in the search process.
+
+Exit Status:
+   	Returns 0 if the directory is changed, and if $PWD is set successfully when
+    	-P is used; non-zero otherwise.

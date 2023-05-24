@@ -1,0 +1,9 @@
+An alias, in the context of computer programming or command line interfaces, is a user-defined shorthand or nickname for a command, program, or sequence of commands. It allows users to create custom shortcuts to simplify their interactions with the system.
+
+When the `alias` command is used without any arguments, it displays the list of defined aliases in the format `alias NAME=VALUE` on the standard output. This provides a convenient way to view the existing aliases.
+
+On the other hand, when arguments are provided, the `alias` command is used to define new aliases. For each `NAME` provided, an alias is created with the corresponding `VALUE`. If the `VALUE` includes a trailing space, the next word following the alias will be checked for further alias substitution when the alias is expanded.
+
+The `alias` command does not have any additional options. Its exit status is true unless a `NAME` is specified for which no alias has been defined.
+
+In summary, the `alias` command allows users to define and manage custom shortcuts, making it easier to execute commands or sequences of commands in a more concise and efficient manner.

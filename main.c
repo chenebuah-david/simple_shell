@@ -1,44 +1,91 @@
 #include "shell.h"
-
 /**
- * main - entry point
- * @ac: arg count
- * @av: arg vector
- *
- * Return: 0 on success, 1 on error
+ * main - main entry point
+ * Return: returns (0)
  */
-int main(int ac, char **av)
+
+int main(void)
 {
-	info_t info[] = { INFO_INIT };
-	int fd = 2;
+	char *path = getenv("PATH");
+	char *paths[MAX_PATHS];
+	int npaths = 0;
+	char *pathtok = strtok(path, PATH_DELIM);
+	size_t n = 0;
+	int status;
+	char *args[MAX_ARGS];
+	int nargs = 0;
+	char *tok;
+	pid_t pid;
+	int interactive = isatty(STDIN_FILENO);
 
-	asm ("mov %1, %0\n\t"
-		"add $3, %0"
-		: "=r" (fd)
-		: "r" (fd));
-
-	if (ac == 2)
+	while (pathtok != NULL && npaths < MAX_PATHS)
 	{
-		fd = open(av[1], O_RDONLY);
-		if (fd == -1)
-		{
-			if (errno == EACCES)
-				exit(126);
-			if (errno == ENOENT)
-			{
-				_eputs(av[0]);
-				_eputs(": 0: Can't open ");
-				_eputs(av[1]);
-				_eputchar('\n');
-				_eputchar(BUF_FLUSH);
-				exit(127);
-			}
-			return (EXIT_FAILURE);
-		}
-		info->readfd = fd;
+		paths[npaths++] = pathtok;
+		pathtok = strtok(NULL, PATH_DELIM);
 	}
-	populate_env_list(info);
-	read_history(info);
-	hsh(info, av);
-	return (EXIT_SUCCESS);
+	while (1)
+	{
+		char *cmd = NULL;
+		if (interactive)
+		{
+		printf("hsh ");
+		fflush(stdout);
+		}
+		if (_getline(&cmd, &n, stdin) == NULL)
+		{
+			free(cmd);
+			break;
+		}
+
+
+		tok = _strtok(cmd, " \t\n");
+		while (tok != NULL && nargs < MAX_ARGS)
+		{
+			args[nargs++] = tok;
+			tok = _strtok(NULL, " \t\n");
+		}
+		args[nargs] = NULL;
+		if (nargs == 0)
+		{
+			free(cmd);
+			continue;
+		}
+		nargs = 0;
+		if (_strcmp(args[0], "exit") == 0)
+		{
+			exit_shell(args);
+		}
+		path = search_path(args[0], paths, npaths);
+
+		if (path == NULL)
+		{
+			printf("Command not found: %s\n", args[0]);
+			continue;
+		}
+
+		pid = fork();
+
+		if (pid == -1)
+		{
+			perror("fork");
+			exit(0);
+		}
+
+		else if (pid == 0)
+		{
+			execve(path, args, environ);
+			perror("execve");
+			free(cmd);
+			exit(0);
+		}
+
+		else
+		{
+			free(cmd);
+			waitpid(pid, &status, 0);
+		}
+		free(path);
+
+	}
+	return (0);
 }
